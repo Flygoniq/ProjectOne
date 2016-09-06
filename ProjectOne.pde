@@ -1,5 +1,5 @@
 // Template for 2D projects
-// Author: Jarek ROSSIGNAC
+// Author: 
 import processing.pdf.*;    // to save screen shots as PDFs, does not always work: accuracy problems, stops drawing or messes up some curves !!!
 
 //**************************** global variables ****************************
@@ -7,13 +7,17 @@ pts P = new pts(); // class containing array of points, used to standardize GUI
 float t=0, f=0;
 boolean animate=true, fill=false, timing=false;
 boolean lerp=true, slerp=true, spiral=true; // toggles to display vector interpoations
-int ms=0, me=0; // milli seconds start and end for timing
+//int ms=0, me=0; // milli seconds start and end for timing
+float interpolator; //this variable bounces between 0 and 1 to help manage interpolations
+boolean rising; //manages interpolator
 int npts=20000; // number of points
 pt center;
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
   {
+  interpolator = 0;
+  boolean rising = true;
   size(800, 800);            // window size
   frameRate(30);             // render 30 frames per second
   smooth();                  // turn on antialiasing
@@ -41,10 +45,11 @@ void draw()      // executed at each frame
     noFill();
     //pen(blue,2); show(SpiralCenter2(A,B,C,D),16);
     //pen(magenta,2); show(SpiralCenter3(A,B,C,D),20);
-    pen(cyan,2); showSpiralPattern(A,B,C,D);
-    pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
-    pen(blue,2); showSpiralThrough3Points(center,A,C);
-    pen(blue,2); showSpiralThrough3Points(center,AP,CP);
+    //pen(cyan,2); showSpiralPattern(A,B,C,D);
+    //pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
+    //pen(blue,2); showSpiralThrough3Points(center,A,C);
+    //pen(blue,2); showSpiralThrough3Points(center,AP,CP);
+    pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 
@@ -55,5 +60,19 @@ void draw()      // executed at each frame
   if(snapTIF) snapPictureToTIF();   
   if(snapJPG) snapPictureToJPG();   
   change=false; // to avoid capturing movie frames when nothing happens
+  
+  //interpolator update
+  if (rising) {
+    interpolator += .02;
+    if (interpolator >= 1) {
+      rising = false;
+    }
+  } else {
+    interpolator -= .02;
+    if (interpolator <= 0) {
+      rising = true;
+    }
+  }
+  println(interpolator);
   }  // end of draw
   

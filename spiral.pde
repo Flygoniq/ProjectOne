@@ -124,7 +124,47 @@ void showSpiralPattern(pt A, pt B, pt C, pt D)
       edge(spiralPt(A,F,m,a,t),spiralPt(B,F,m,a,t));
   endShape();
   }
+
+
+//this function makes pretty much everything... 
+void doTheAnimation(pt A, pt B, pt C, pt D, pt AP, pt BP, pt CP, pt DP) {
+  float a =spiralAngle(A,B,C,D); 
+  float m =spiralScale(A,B,C,D);
+  float ap =spiralAngle(AP,BP,CP,DP); 
+  float mp =spiralScale(AP,BP,CP,DP);
+  pt F = SpiralCenter(a, m, A, C); 
+  pt FP = SpiralCenter(ap, mp, AP, CP); 
+  beginShape();
+    float numlines = 10;
+    for(float i = 0; i < numlines; i += 1) {
+      float position = interpolator + i * (1 / numlines);
+      //println(interpolator);
+      //println(position);
+      if (position > 1) position -= 1;
+      float t = cosLerp(i * (1 / numlines), (i + 1) * (1 / numlines), position);
+      pt first = spiralPt(A,F,m,a,t);
+      pt second = spiralPt(AP,FP,mp,ap,t);
+      edge(first,spiralPt(B,F,m,a,t));
+      edge(second,spiralPt(BP,FP,mp,ap,t));
+      pt dot = lerp(first, second, t);
+      showId(dot, "K");
+    }
+  endShape();
+}
  
+//where A is start, B is end
+float cosLerp(float a, float b, float time) {
+  float f = (1 - cos(time * PI)) * .5;
+  return (a * (1-f) + b * f);
+}
+
+//returns a point between a and b based on time
+pt lerp(pt a, pt b, float time) {
+  //println(time);
+  float x = a.x + ((b.x - a.x) * time);
+  float y = a.y + ((b.y - a.y) * time);
+  return new pt(x, y);
+}
 
 // SPHERICAL INTERPOLATION USED (WRONGLY) FOR VECTORS U AND V THAT MAUY NOT HAVE SAME MAGNITUDE
 vec slerp(vec U, float t, vec V) 
@@ -133,4 +173,3 @@ vec slerp(vec U, float t, vec V)
   float b=sin((1.-t)*a),c=sin(t*a),d=sin(a);
   return W(b/d,U,c/d,V); 
   }
-  
