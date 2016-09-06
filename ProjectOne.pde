@@ -68,18 +68,18 @@ void draw()      // executed at each frame
     noFill();
     //pen(blue,2); show(SpiralCenter2(A,B,C,D),16);
     //pen(magenta,2); show(SpiralCenter3(A,B,C,D),20);
-<<<<<<< Updated upstream
+
     //pen(cyan,2); showSpiralPattern(A,B,C,D);
     //pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
     //pen(blue,2); showSpiralThrough3Points(center,A,C);
     //pen(blue,2); showSpiralThrough3Points(center,AP,CP);
     pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
-=======
+
     pen(cyan,2); showSpiralPattern(A,B,C,D);
     pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
     pen(blue,2); showSpiralThrough3Points(center, A, C);
     pen(blue,2); showSpiralThrough3Points(center, AP, CP);
->>>>>>> Stashed changes
+
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 
