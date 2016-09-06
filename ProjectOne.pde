@@ -1,5 +1,5 @@
 // Template for 2D projects
-// Author: 
+// Author: Jarek Rossignac.  Used by Alan Jiang, Anish Sharma
 import processing.pdf.*;    // to save screen shots as PDFs, does not always work: accuracy problems, stops drawing or messes up some curves !!!
 import controlP5.*;
 
@@ -68,19 +68,23 @@ void draw()      // executed at each frame
     pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];     // crates points with more convenient names
     pt AP = A.invert();  pt BP = B.invert();  pt CP = C.invert();  pt DP = D.invert();  
 
-    pen(green,3); edge(A,B); edge(AP,BP);  pen(red,3); edge(C,D); edge(CP,DP);
     //pt F = SpiralCenter1(A,B,C,D);
 
-    if (viewDots) {
-      pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D");// showId(center, "8");showId(F,"F");
-    }
+    
     //showId(AP,"AP"); showId(BP,"BP"); showId(CP,"CP"); showId(DP,"DP");
     noFill();
     displayCounter = 0;
     dotCount = 0;
     pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
     showSpiralThrough3Points(dots[0], dots[1], dots[2]);
+    if (viewDots) {
+      pen(black,1); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D");// showId(center, "8");showId(F,"F");
+      for (pt p : dots) {
+        showId(p, "P");
+      }
+    }
 
+    pen(green,3); edge(A,B); edge(AP,BP);  pen(red,3); edge(C,D); edge(CP,DP);
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 

@@ -162,5 +162,5 @@ String title ="Spiral interpolations ",            name ="Students: Anish Sharma
        subtitle = "   for Jarek Rossignac's CS3451 class in the Fall 2016",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",
-       guide="click and drag to move points.  V to hide/show ABCD"; // help info
+       guide="click and drag to move A, B, C, or D.  V to hide dots and guide lines"; // help info
        
