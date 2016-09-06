@@ -52,7 +52,7 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='s') ;
     if(key=='t') ; // used in mouseDrag to translate the control points 
     if(key=='p') ;
-    if(key=='v') ; 
+    if(key=='v') viewDots = !viewDots; 
     if(key=='w') ;  
     if(key=='x') ;
     if(key=='y') ;
@@ -162,5 +162,5 @@ String title ="Spiral interpolations ",            name ="Students: Anish Sharma
        subtitle = "   for Jarek Rossignac's CS3451 class in the Fall 2016",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",
-       guide="click and drag to edit, press '1', '2', '3' to toggle LERP, SLERP, SPIRAL"; // help info
+       guide="click and drag to move points.  V to hide/show ABCD"; // help info
        

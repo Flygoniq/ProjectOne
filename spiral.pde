@@ -146,10 +146,11 @@ void doTheAnimation(pt A, pt B, pt C, pt D, pt AP, pt BP, pt CP, pt DP) {
       pt second = spiralPt(AP,FP,mp,ap,t);
       edge(first,spiralPt(B,F,m,a,t));
       edge(second,spiralPt(BP,FP,mp,ap,t));
-      t = cosLerp(.1, .9, position);
-      println(t);
-      pt dot = lerp(first, second, interpolator2);
-      showId(dot, "K");
+      if (displayCounter++ % 4 == 0) {
+        t = cosLerp(.1, .9, position);
+        dots[dotCount++] = lerp(first, second, interpolator2);
+        noFill();
+      }
     }
   endShape();
 }

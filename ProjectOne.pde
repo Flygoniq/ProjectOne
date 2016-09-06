@@ -18,37 +18,45 @@ pt center;
 ControlP5 cp5;
 float InterpolateRateOne = 5;
 float InterpolateRateTwo = 5;
+int displayCounter;
+boolean viewDots;
+pt[] dots;
+int dotCount;
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
   {
+    dots = new pt[3];
+    dotCount = 0;
+    viewDots = true;
+    displayCounter = 0;
     cp5 = new ControlP5(this);
-  interpolator1 = 0;
-  rising1 = true;
-  size(800, 800);            // window size
-  frameRate(30);             // render 30 frames per second
-  smooth();                  // turn on antialiasing
-  myFace = loadImage("data/Face.jpg");  // load image from file pic.jpg in folder data *** replace that file with your pic of your own face
-  myFace2 = loadImage("data/FaceTwo.jpg"); 
-  P.declare(); // declares all points in P. MUST BE DONE BEFORE ADDING POINTS 
-  // P.resetOnCircle(4); // sets P to have 4 points and places them in a circle on the canvas
-  P.loadPts("data/pts");  // loads points form file saved with this program
-  center = new pt(width / 2, height / 2);
+    interpolator1 = 0;
+    rising1 = true;
+    size(800, 800);            // window size
+    frameRate(30);             // render 30 frames per second
+    smooth();                  // turn on antialiasing
+    myFace = loadImage("data/Face.jpg");  // load image from file pic.jpg in folder data *** replace that file with your pic of your own face
+    myFace2 = loadImage("data/FaceTwo.jpg"); 
+    P.declare(); // declares all points in P. MUST BE DONE BEFORE ADDING POINTS 
+    // P.resetOnCircle(4); // sets P to have 4 points and places them in a circle on the canvas
+    P.loadPts("data/pts");  // loads points form file saved with this program
+    center = new pt(width / 2, height / 2);
   
-  cp5.addSlider("InterpolateRateOne")
-     .setPosition(50, 650)
-     .setRange(2, 100)
-     .setSize(90, 20)
-     .setLabel("Line Rate")
-     .setColorLabel(ControlP5.BLACK)
-     ;
-  cp5.addSlider("InterpolateRateTwo")
-     .setPosition(50, 680)
-     .setRange(2, 100)
-     .setSize(90, 20)
-     .setLabel("Dot Rate")
-     .setColorLabel(ControlP5.BLACK)
-     ;
+    cp5.addSlider("InterpolateRateOne")
+       .setPosition(50, 650)
+       .setRange(2, 100)
+       .setSize(90, 20)
+       .setLabel("Line Rate")
+       .setColorLabel(ControlP5.BLACK)
+       ;
+    cp5.addSlider("InterpolateRateTwo")
+       .setPosition(50, 680)
+       .setRange(2, 100)
+       .setSize(90, 20)
+       .setLabel("Dot Rate")
+       .setColorLabel(ControlP5.BLACK)
+       ;
   }// end of setup
 
 //**************************** display current frame ****************************
@@ -60,20 +68,18 @@ void draw()      // executed at each frame
     pt A=P.G[0], B=P.G[1], C=P.G[2], D=P.G[3];     // crates points with more convenient names
     pt AP = A.invert();  pt BP = B.invert();  pt CP = C.invert();  pt DP = D.invert();  
 
-   pen(green,3); edge(A,B); edge(AP,BP);  pen(red,3); edge(C,D); edge(CP,DP);
-   //pt F = SpiralCenter1(A,B,C,D);
+    pen(green,3); edge(A,B); edge(AP,BP);  pen(red,3); edge(C,D); edge(CP,DP);
+    //pt F = SpiralCenter1(A,B,C,D);
 
-    pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D"); showId(center, "8");// showId(F,"F");
+    if (viewDots) {
+      pen(black,2); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D");// showId(center, "8");showId(F,"F");
+    }
     //showId(AP,"AP"); showId(BP,"BP"); showId(CP,"CP"); showId(DP,"DP");
     noFill();
-    //pen(blue,2); show(SpiralCenter2(A,B,C,D),16);
-    //pen(magenta,2); show(SpiralCenter3(A,B,C,D),20);
-
-    //pen(cyan,2); showSpiralPattern(A,B,C,D);
-    //pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
-    //pen(blue,2); showSpiralThrough3Points(center,A,C);
-    //pen(blue,2); showSpiralThrough3Points(center,AP,CP);
+    displayCounter = 0;
+    dotCount = 0;
     pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
+    showSpiralThrough3Points(dots[0], dots[1], dots[2]);
 
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
@@ -89,24 +95,24 @@ void draw()      // executed at each frame
   //interpolator1 update
   if (rising1) {
     interpolator1 += (.1 / InterpolateRateOne);
-    if (interpolator1 >= 1) {
+    if (interpolator1 >= 1 - (.1 / InterpolateRateOne)) {
       rising1 = false;
     }
   } else {
     interpolator1 -= (.1 / InterpolateRateOne);
-    if (interpolator1 <= 0) {
+    if (interpolator1 <= (.1 / InterpolateRateOne)) {
       rising1 = true;
     }
   }
   //interpolator2 update
   if (rising2) {
     interpolator2 += (.1 / InterpolateRateTwo);
-    if (interpolator2 >= 1) {
+    if (interpolator2 >= 1 - (.1 / InterpolateRateTwo)) {
       rising2 = false;
     }
   } else {
     interpolator2 -= (.1 / InterpolateRateTwo);
-    if (interpolator2 <= 0) {
+    if (interpolator2 <= (.1 / InterpolateRateTwo)) {
       rising2 = true;
     }
   }
