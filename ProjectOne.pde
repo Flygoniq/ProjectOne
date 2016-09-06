@@ -75,11 +75,6 @@ void draw()      // executed at each frame
     //pen(blue,2); showSpiralThrough3Points(center,AP,CP);
     pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
 
-    pen(cyan,2); showSpiralPattern(A,B,C,D);
-    pen(cyan,2); showSpiralPattern(AP,BP,CP,DP);
-    pen(blue,2); showSpiralThrough3Points(center, A, C);
-    pen(blue,2); showSpiralThrough3Points(center, AP, CP);
-
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 
