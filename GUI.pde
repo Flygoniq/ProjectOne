@@ -40,7 +40,7 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
       edge2Color = red;
       movingEdgesColor = cyan;
       movingSpiralColor = cyan;
-    }
+    } //returns lines, edges, and spirals to initial colors
     if(key=='e') ;
     if(key=='f') ;
     if(key=='g') ; 
@@ -51,11 +51,18 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='l') ;
     if(key=='m') ;
     if(key=='n') ;
-    if(key=='o') ;
+    if(key=='o'){
+      dotColor = yellow;
+      edge1Color = black;
+      movingEdgesColor = black;
+      
+    }
     if(key=='p') {
       dotColor = magenta;
+      edge1Color = black;
+      movingEdgesColor = grey;
     }
-    if(key=='q') ; 
+    if(key=='q') ;
     if(key=='r') ; // used in mouseDrag to rotate the control points 
     if(key=='s') ;
     if(key=='t') ; // used in mouseDrag to translate the control points 
@@ -169,5 +176,5 @@ void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
 String title ="Spiral interpolations ",            name ="Students: Anish Sharma, Alan Jiang",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",
-       guide="click and drag to move A, B, C, or D.  V to hide dots and guide lines.  D to return to default colors"; // help info
+       guide="click and drag to move A, B, C, or D.  V to hide dots and guide lines. Press O and P to change color schemes. D to return to default colors"; // help info
        
