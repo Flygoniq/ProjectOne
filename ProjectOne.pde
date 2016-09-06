@@ -1,6 +1,7 @@
 // Template for 2D projects
 // Author: 
 import processing.pdf.*;    // to save screen shots as PDFs, does not always work: accuracy problems, stops drawing or messes up some curves !!!
+import controlP5.*;
 
 //**************************** global variables ****************************
 pts P = new pts(); // class containing array of points, used to standardize GUI
@@ -8,16 +9,22 @@ float t=0, f=0;
 boolean animate=true, fill=false, timing=false;
 boolean lerp=true, slerp=true, spiral=true; // toggles to display vector interpoations
 //int ms=0, me=0; // milli seconds start and end for timing
-float interpolator; //this variable bounces between 0 and 1 to help manage interpolations
-boolean rising; //manages interpolator
+float interpolator1; //this variable bounces between 0 and 1 to help manage interpolations
+float interpolator2;
+boolean rising1; //manages interpolator1
+boolean rising2;
 int npts=20000; // number of points
 pt center;
+ControlP5 cp5;
+float InterpolateRateOne = 5;
+float InterpolateRateTwo = 5;
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
   {
-  interpolator = 0;
-  boolean rising = true;
+    cp5 = new ControlP5(this);
+  interpolator1 = 0;
+  rising1 = true;
   size(800, 800);            // window size
   frameRate(30);             // render 30 frames per second
   smooth();                  // turn on antialiasing
@@ -26,7 +33,22 @@ void setup()               // executed once at the begining
   // P.resetOnCircle(4); // sets P to have 4 points and places them in a circle on the canvas
   P.loadPts("data/pts");  // loads points form file saved with this program
   center = new pt(width / 2, height / 2);
-  } // end of setup
+  
+  cp5.addSlider("InterpolateRateOne")
+     .setPosition(50, 650)
+     .setRange(2, 100)
+     .setSize(90, 20)
+     .setLabel("Line Rate")
+     .setColorLabel(ControlP5.BLACK)
+     ;
+  cp5.addSlider("InterpolateRateTwo")
+     .setPosition(50, 680)
+     .setRange(2, 100)
+     .setSize(90, 20)
+     .setLabel("Dot Rate")
+     .setColorLabel(ControlP5.BLACK)
+     ;
+  }// end of setup
 
 //**************************** display current frame ****************************
 void draw()      // executed at each frame
@@ -61,18 +83,29 @@ void draw()      // executed at each frame
   if(snapJPG) snapPictureToJPG();   
   change=false; // to avoid capturing movie frames when nothing happens
   
-  //interpolator update
-  if (rising) {
-    interpolator += .02;
-    if (interpolator >= 1) {
-      rising = false;
+  //interpolator1 update
+  if (rising1) {
+    interpolator1 += (.1 / InterpolateRateOne);
+    if (interpolator1 >= 1) {
+      rising1 = false;
     }
   } else {
-    interpolator -= .02;
-    if (interpolator <= 0) {
-      rising = true;
+    interpolator1 -= (.1 / InterpolateRateOne);
+    if (interpolator1 <= 0) {
+      rising1 = true;
     }
   }
-  println(interpolator);
+  //interpolator2 update
+  if (rising2) {
+    interpolator2 += (.1 / InterpolateRateTwo);
+    if (interpolator2 >= 1) {
+      rising2 = false;
+    }
+  } else {
+    interpolator2 -= (.1 / InterpolateRateTwo);
+    if (interpolator2 <= 0) {
+      rising2 = true;
+    }
+  }
   }  // end of draw
   

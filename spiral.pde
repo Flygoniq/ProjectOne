@@ -137,8 +137,8 @@ void doTheAnimation(pt A, pt B, pt C, pt D, pt AP, pt BP, pt CP, pt DP) {
   beginShape();
     float numlines = 10;
     for(float i = 0; i < numlines; i += 1) {
-      float position = interpolator + i * (1 / numlines);
-      //println(interpolator);
+      float position = interpolator1 + i * (1 / numlines);
+      //println(interpolator1);
       //println(position);
       if (position > 1) position -= 1;
       float t = cosLerp(i * (1 / numlines), (i + 1) * (1 / numlines), position);
@@ -146,7 +146,9 @@ void doTheAnimation(pt A, pt B, pt C, pt D, pt AP, pt BP, pt CP, pt DP) {
       pt second = spiralPt(AP,FP,mp,ap,t);
       edge(first,spiralPt(B,F,m,a,t));
       edge(second,spiralPt(BP,FP,mp,ap,t));
-      pt dot = lerp(first, second, t);
+      t = cosLerp(.1, .9, position);
+      println(t);
+      pt dot = lerp(first, second, interpolator2);
       showId(dot, "K");
     }
   endShape();
