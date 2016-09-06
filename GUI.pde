@@ -34,7 +34,13 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='a') ; 
     if(key=='b') ; 
     if(key=='c') P.resetOnCircle(P.nv);
-    if(key=='d') ; 
+    if(key=='d') {
+      dotColor = black;
+      edge1Color = green;
+      edge2Color = red;
+      movingEdgesColor = cyan;
+      movingSpiralColor = cyan;
+    }
     if(key=='e') ;
     if(key=='f') ;
     if(key=='g') ; 
@@ -46,7 +52,9 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='m') ;
     if(key=='n') ;
     if(key=='o') ;
-    if(key=='p') ;
+    if(key=='p') {
+      dotColor = magenta;
+    }
     if(key=='q') ; 
     if(key=='r') ; // used in mouseDrag to rotate the control points 
     if(key=='s') ;
@@ -159,8 +167,7 @@ void mouseWheel(MouseEvent event) { // reads mouse wheel and uses to zoom
 
 //**************************** text for name, title and help  ****************************
 String title ="Spiral interpolations ",            name ="Students: Anish Sharma, Alan Jiang",
-       subtitle = "   for Jarek Rossignac's CS3451 class in the Fall 2016",
        
        menu="?:(show/hide) help, ~/!/@:snap pdf/jpg/fif, `:(start/stop) recording, S/L:save/load, Q:quit",
-       guide="click and drag to move A, B, C, or D.  V to hide dots and guide lines"; // help info
+       guide="click and drag to move A, B, C, or D.  V to hide dots and guide lines.  D to return to default colors"; // help info
        

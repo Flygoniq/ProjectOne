@@ -22,10 +22,16 @@ int displayCounter;
 boolean viewDots;
 pt[] dots;
 int dotCount;
+color dotColor, edge1Color, edge2Color, movingEdgesColor, movingSpiralColor;
 
 //**************************** initialization ****************************
 void setup()               // executed once at the begining 
   {
+    dotColor = black;
+    edge1Color = green;
+    edge2Color = red;
+    movingEdgesColor = cyan;
+    movingSpiralColor = cyan;
     dots = new pt[3];
     dotCount = 0;
     viewDots = true;
@@ -75,16 +81,17 @@ void draw()      // executed at each frame
     noFill();
     displayCounter = 0;
     dotCount = 0;
-    pen(cyan, 2); doTheAnimation(A, B, C, D, AP, BP, CP, DP);
+    doTheAnimation(A, B, C, D, AP, BP, CP, DP);
+    pen(movingSpiralColor, 2);
     showSpiralThrough3Points(dots[0], dots[1], dots[2]);
     if (viewDots) {
-      pen(black,1); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D");// showId(center, "8");showId(F,"F");
+      pen(dotColor,1); showId(A,"A"); showId(B,"B"); showId(C,"C"); showId(D,"D");// showId(center, "8");showId(F,"F");
       for (pt p : dots) {
         showId(p, "P");
       }
     }
 
-    pen(green,3); edge(A,B); edge(AP,BP);  pen(red,3); edge(C,D); edge(CP,DP);
+    pen(edge1Color,3); edge(A,B); edge(AP,BP);  pen(edge2Color,3); edge(C,D); edge(CP,DP);
 
   if(recordingPDF) endRecordingPDF();  // end saving a .pdf file with the image of the canvas
 

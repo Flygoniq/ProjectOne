@@ -128,6 +128,7 @@ void showSpiralPattern(pt A, pt B, pt C, pt D)
 
 //this function makes pretty much everything... 
 void doTheAnimation(pt A, pt B, pt C, pt D, pt AP, pt BP, pt CP, pt DP) {
+  pen(movingEdgesColor, 2);
   float a =spiralAngle(A,B,C,D); 
   float m =spiralScale(A,B,C,D);
   float ap =spiralAngle(AP,BP,CP,DP); 

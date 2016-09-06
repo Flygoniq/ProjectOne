@@ -62,7 +62,6 @@ void scribeMouseCoordinates() {fill(black); text("("+mouseX+","+mouseY+")",mouse
 void displayHeader()  // Displays title and authors face on screen
     {
     scribeHeader(title,0);       scribeHeaderRight(name); 
-    scribeHeader(subtitle,1);
     image(myFace, width-myFace.width/2, 25, myFace.width/3.5, myFace.height/3.5); 
     image(myFace2, 520, 25, myFace2.width/2.6 , myFace2.height/2.8); 
     }
